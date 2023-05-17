@@ -1,0 +1,12 @@
+{"properties": [
+  {
+    "name": "coach.name",
+    "type": "java.lang.String",
+    "description": "name of the coach"
+  },
+  {
+    "name": "team.name",
+    "type": "java.lang.String",
+    "description": "name of the team"
+  }
+]}
