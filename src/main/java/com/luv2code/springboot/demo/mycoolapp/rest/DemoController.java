@@ -3,7 +3,7 @@ package com.luv2code.springboot.demo.mycoolapp.rest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.luv2code.springboot.demo.mycoolapp.interfaces.Coach;
+import com.luv2code.springboot.demo.util.entities.interfaces.Coach;
 
 @RestController
 public class DemoController {
