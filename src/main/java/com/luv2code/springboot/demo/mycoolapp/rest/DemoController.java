@@ -14,6 +14,7 @@ public class DemoController {
     // define a constructor for the dependecy injection
     // @Autowired (Optional if there is only one constructor)
     public DemoController(Coach theCoach){
+        System.out.println("In constructor:" + this.getClass().getSimpleName());
         myCoach = theCoach;
     }
 

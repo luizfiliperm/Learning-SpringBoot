@@ -7,6 +7,10 @@ import com.luv2code.springboot.demo.mycoolapp.entities.interfaces.Coach;
 @Component
 public class TennisCoach implements Coach {
 
+    public TennisCoach(){
+        System.out.println("In constructor:" + this.getClass().getSimpleName());
+    }
+
 	@Override
 	public String getDailyWorkout() {
         return "Practice your backhand volley";
