@@ -1,5 +1,6 @@
 package com.luv2code.springboot.demo.mycoolapp.rest;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,7 +17,7 @@ public class DemoController {
 
     // define a constructor for the dependecy injection
     // @Autowired (Optional if there is only one constructor)
-    public DemoController(Coach theCoach){
+    public DemoController(@Qualifier("aquatic") Coach theCoach){
         System.out.println("In constructor:" + this.getClass().getSimpleName());
         myCoach = theCoach;
     }
