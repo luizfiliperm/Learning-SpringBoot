@@ -1,5 +1,7 @@
 package com.luv2code.cruddemo;
 
+import java.util.List;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,7 +21,8 @@ public class CruddemoApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(StudentDAO studentDAO){
 		return runner -> {
-			readStudent(studentDAO);
+			findAllStudent(studentDAO);
+			findByLastName(studentDAO);
 		};
 	}
 
@@ -52,8 +55,24 @@ public class CruddemoApplication {
 		Student myStudent = studentDAO.findById(newStudent.getId());
 
 		// display the student
-		
+
 		System.out.println("Found the student: " + myStudent);
 
+	}
+
+	private void findAllStudent(StudentDAO studentDAO){
+
+		List<Student> students = studentDAO.findAll();
+
+		students.forEach(System.out::println);
+	}
+
+	private void findByLastName(StudentDAO studentDAO){
+
+		// get a list of students for last name: Filipe
+		List<Student> students = studentDAO.findByLastName("Filipe");
+
+		// display the students
+		students.forEach(System.out::println);
 	}
 }
