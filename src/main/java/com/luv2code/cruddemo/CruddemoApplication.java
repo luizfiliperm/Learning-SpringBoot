@@ -5,6 +5,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import com.luv2code.cruddemo.dao.StudentDAO;
+import com.luv2code.cruddemo.entities.Student;
+
 @SpringBootApplication
 public class CruddemoApplication {
 
@@ -14,9 +17,25 @@ public class CruddemoApplication {
 
 
 	@Bean
-	public CommandLineRunner commandLineRunner(String[] args){
+	public CommandLineRunner commandLineRunner(StudentDAO studentDAO){
 		return runner -> {
-			System.out.println("Hello World");
+			createStudent(studentDAO);
 		};
+	}
+
+
+	private void createStudent(StudentDAO studentDAO) {
+
+		// create the student object
+		System.out.println("Creating new student object...");
+		Student newStudent = new Student("Luiz", "Filipe", "luizfilipe@gmail.com");
+
+		// save the student object
+		System.out.println("Saving the student...");
+		studentDAO.save(newStudent);
+
+		// display the student id
+		System.out.println("Student saved. Generated id: " + newStudent.getId());
+
 	}
 }
