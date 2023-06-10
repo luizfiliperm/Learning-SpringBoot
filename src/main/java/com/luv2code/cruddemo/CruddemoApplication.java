@@ -21,22 +21,25 @@ public class CruddemoApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(StudentDAO studentDAO){
 		return runner -> {
-			// createStudent(studentDAO);
+			createStudent(studentDAO, "Luiz", "Filipe", "luizfilipe@gmailcom");
+			createStudent(studentDAO, "Carlos", "Filipe", "carlosfilipe@gmailcom");
+			createStudent(studentDAO, "Maria", "Esther", "mariaEsther@gmailcom");
+
 			// readStudent(studentDAO);
 			// findAllStudent(studentDAO);
 			// findByLastName(studentDAO);
 			// updateStudent(studentDAO, 3001);
 			// deleteById(studentDAO, 3001);
-			deleteAll(studentDAO);
+			// deleteAll(studentDAO);
 		};
 	}
 
 
-	private Student createStudent(StudentDAO studentDAO) {
+	private Student createStudent(StudentDAO studentDAO, String firstName, String lastName, String email) {
 
 		// create the student object
 		System.out.println("Creating new student object...");
-		Student newStudent = new Student("Luiz", "Filipe", "luizfilipe@gmail.com");
+		Student newStudent = new Student(firstName, lastName, email);
 
 		// save the student object
 		System.out.println("Saving the student...");
@@ -53,7 +56,7 @@ public class CruddemoApplication {
 		
 		// create a student object
 
-		Student newStudent = createStudent(studentDAO);
+		Student newStudent = createStudent(studentDAO, "Luiz", "Filipe", "luizfilipe@gmailcom");
 
 		// retrieve the student from the database based on id: primary key
 
