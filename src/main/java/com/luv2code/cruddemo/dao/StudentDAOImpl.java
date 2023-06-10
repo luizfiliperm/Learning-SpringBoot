@@ -24,14 +24,14 @@ public class StudentDAOImpl implements StudentDAO{
     }
     
 
-    // implement save method
+    // implement methods
     @Override
     @Transactional
     public void save(Student student) {
         entityManager.persist(student);
     }
 
-    // implement findById method
+
     @Override
     public Student findById(Integer id) {
         return entityManager.find(Student.class, id);
@@ -56,6 +56,13 @@ public class StudentDAOImpl implements StudentDAO{
 
         // return the results
         return query.getResultList();
+    }
+
+
+    @Override
+    @Transactional
+    public void update(Student student) {
+        entityManager.merge(student);
     }
 
 }
