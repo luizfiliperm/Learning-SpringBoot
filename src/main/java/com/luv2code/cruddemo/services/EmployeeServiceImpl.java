@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import com.luv2code.cruddemo.dao.EmployeeDAO;
 import com.luv2code.cruddemo.entities.Employee;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class EmployeeServiceImpl implements EmployeeService{
 
@@ -21,6 +23,23 @@ public class EmployeeServiceImpl implements EmployeeService{
     @Override
     public List<Employee> findAll() {
         return employeeDAO.findAll();
+    }
+
+    @Override
+    public Employee findById(Long id) {
+        return employeeDAO.findById(id);
+    }
+
+    @Transactional
+    @Override
+    public Employee save(Employee employee) {
+        return employeeDAO.save(employee);
+    }
+
+    @Transactional
+    @Override
+    public void deleteById(Long id) {
+        employeeDAO.deleteById(id);
     }
     
 }
