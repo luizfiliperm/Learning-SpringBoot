@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 
 import com.luv2code.cruddemo.dao.InstructorDetailRepository;
 import com.luv2code.cruddemo.dao.InstructorRepository;
+import com.luv2code.cruddemo.entities.Course;
 import com.luv2code.cruddemo.entities.Instructor;
 import com.luv2code.cruddemo.entities.InstructorDetail;
 
@@ -23,9 +24,18 @@ public class CruddemoApplication {
 	public CommandLineRunner commandLineRunner(InstructorRepository instructorRepository, InstructorDetailRepository instructorDetailRepository){
 		return runner ->{
 			// createInstructor(instructorRepository);
+
 			// fidInstructorDetailById(1L, instructorDetailRepository);
-			deleteInstructorDetailById(3L, instructorDetailRepository, instructorRepository);
-			System.out.println(instructorRepository.findById(3L));
+
+			// deleteInstructorDetailById(3L, instructorDetailRepository, instructorRepository);
+
+			// System.out.println(instructorRepository.findById(3L));
+
+			// createInstructorAndAddCourses(instructorRepository);
+
+			addCourseToAExistingInstructor(1L, instructorRepository);
+
+			printInstructorWithCourses(1L, instructorRepository);
 			
 		};
 	}
@@ -55,20 +65,56 @@ public class CruddemoApplication {
 	private void deleteInstructorDetailById(Long id, InstructorDetailRepository instructorDetailRepository, InstructorRepository instructorRepository) {
     Optional<InstructorDetail> instructorDetailData = instructorDetailRepository.findById(id);
     
-    if (instructorDetailData.isPresent()) {
-        InstructorDetail instructorDetail = instructorDetailData.get();
-        Instructor instructor = instructorDetail.getInstructor();
-        
-        if (instructor != null) {
-            instructor.setInstructorDetail(null);
-            instructorRepository.save(instructor);
-        }
-        
-        instructorDetailRepository.deleteById(id);
-        System.out.println("InstructorDetail removido com sucesso.");
-    } else {
-        System.out.println("InstructorDetail não encontrado.");
-    }
-}
+		if (instructorDetailData.isPresent()) {
+			InstructorDetail instructorDetail = instructorDetailData.get();
+			Instructor instructor = instructorDetail.getInstructor();
+			
+			if (instructor != null) {
+				instructor.setInstructorDetail(null);
+				instructorRepository.save(instructor);
+			}
+			
+			instructorDetailRepository.deleteById(id);
+			System.out.println("InstructorDetail removido com sucesso.");
+		} else {
+			System.out.println("InstructorDetail não encontrado.");
+		}
+	}
+	
+	private void createInstructorAndAddCourses(InstructorRepository instructorRepository){
 
+		Instructor instructor = new Instructor("Luiz", "Filipe", "luizfilipe@gmail.com", new InstructorDetail("youtube.com", "Code"));
+
+		Course course = new Course("All about OOP");
+
+		instructor.add(course);
+
+		System.out.println("Adding new Instructor: " + instructor);
+		System.out.println("Adding new Course: " + course);
+		instructorRepository.save(instructor);
+
+		System.out.println("done");
+	}
+
+	private void addCourseToAExistingInstructor(Long instructorID, InstructorRepository instructorRepository){
+		Instructor instructor = instructorRepository.findById(instructorID).get();
+
+		Course course = new Course("All about Spring");
+
+		instructor.add(course);
+
+		System.out.println("Adding this course: " + course);
+		System.out.println("To this instructor: " + instructor);
+		instructorRepository.save(instructor);
+
+		System.out.println("Done!");
+	}
+
+	private void printInstructorWithCourses(Long id, InstructorRepository instructorRepository){
+		Instructor instructor = instructorRepository.findById(id).get();
+
+		System.out.println(instructor);
+
+		System.out.println("Courses: " + instructor.getCourses());
+	}
 }
