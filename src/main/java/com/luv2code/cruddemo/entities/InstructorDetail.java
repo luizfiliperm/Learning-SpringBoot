@@ -19,15 +19,15 @@ public class InstructorDetail {
     @Column(name = "youtube_channel")
     private String youtubeChannel;
 
-    @Column(name = "hobbie")
-    private String hobbie;
+    @Column(name = "hobby")
+    private String hobby;
 
     public InstructorDetail() {
     }
 
-    public InstructorDetail(String youtubeChannel, String hobbie) {
+    public InstructorDetail(String youtubeChannel, String hobby) {
         this.youtubeChannel = youtubeChannel;
-        this.hobbie = hobbie;
+        this.hobby = hobby;
     }
 
     public Long getId() {
@@ -46,17 +46,17 @@ public class InstructorDetail {
         this.youtubeChannel = youtubeChannel;
     }
 
-    public String getHobbie() {
-        return hobbie;
+    public String gethobby() {
+        return hobby;
     }
 
-    public void setHobbie(String hobbie) {
-        this.hobbie = hobbie;
+    public void sethobby(String hobby) {
+        this.hobby = hobby;
     }
 
     @Override
     public String toString() {
-        return "id: " + id + ", youtubeChannel: " + youtubeChannel + ", hobbie: " + hobbie;
+        return "id: " + id + ", youtubeChannel: " + youtubeChannel + ", hobby: " + hobby;
     }
 
     
