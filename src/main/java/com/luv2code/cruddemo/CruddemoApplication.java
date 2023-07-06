@@ -1,5 +1,7 @@
 package com.luv2code.cruddemo;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.boot.CommandLineRunner;
@@ -7,6 +9,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import com.luv2code.cruddemo.dao.CourseRepository;
 import com.luv2code.cruddemo.dao.InstructorDetailRepository;
 import com.luv2code.cruddemo.dao.InstructorRepository;
 import com.luv2code.cruddemo.entities.Course;
@@ -21,7 +24,7 @@ public class CruddemoApplication {
 	}
 
 	@Bean
-	public CommandLineRunner commandLineRunner(InstructorRepository instructorRepository, InstructorDetailRepository instructorDetailRepository){
+	public CommandLineRunner commandLineRunner(InstructorRepository instructorRepository, InstructorDetailRepository instructorDetailRepository, CourseRepository courseRepository){
 		return runner ->{
 			// createInstructor(instructorRepository);
 
@@ -33,7 +36,7 @@ public class CruddemoApplication {
 
 			// createInstructorAndAddCourses(instructorRepository);
 
-			addCourseToAExistingInstructor(1L, instructorRepository);
+			// addCourseToAExistingInstructor(1L, instructorRepository);
 
 			printInstructorWithCourses(1L, instructorRepository);
 			
@@ -110,11 +113,36 @@ public class CruddemoApplication {
 		System.out.println("Done!");
 	}
 
+	// Eager Way
+	/*
 	private void printInstructorWithCourses(Long id, InstructorRepository instructorRepository){
 		Instructor instructor = instructorRepository.findById(id).get();
 
 		System.out.println(instructor);
 
 		System.out.println("Courses: " + instructor.getCourses());
-	}
+	} 
+	*/
+
+	// Lazy Way
+	// private void printInstructorWithCourses(Long id, InstructorRepository instructorRepository, CourseRepository courseRepository){
+	// 	Instructor instructor = instructorRepository.findById(id).get();
+
+	// 	System.out.println(instructor);
+
+	// 	List<Course> courses = courseRepository.findByInstructorId(id);
+
+	// 	instructor.setCourses(courses);
+
+	// 	System.out.println("Courses: " + instructor.getCourses());
+	// } 
+
+	// Another Lazy Way Using Join Query
+	private void printInstructorWithCourses(Long id, InstructorRepository instructorRepository){
+		Instructor instructor = instructorRepository.findByIdAndFetchCoursesEagerly(id);
+
+		System.out.println(instructor);
+
+		System.out.println("Courses: " + instructor.getCourses());
+	} 
 }
