@@ -1,10 +1,12 @@
 package com.luv2code.cruddemo.entities;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -21,6 +23,9 @@ public class InstructorDetail {
 
     @Column(name = "hobby")
     private String hobby;
+
+    @OneToOne(mappedBy = "instructorDetail", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    private Instructor instructor;
 
     public InstructorDetail() {
     }
@@ -46,18 +51,28 @@ public class InstructorDetail {
         this.youtubeChannel = youtubeChannel;
     }
 
-    public String gethobby() {
+    public String getHobby() {
         return hobby;
     }
 
-    public void sethobby(String hobby) {
+    public void setHobby(String hobby) {
         this.hobby = hobby;
+    }
+
+    public Instructor getInstructor() {
+        return instructor;
+    }
+
+    public void setInstructor(Instructor instructor) {
+        this.instructor = instructor;
     }
 
     @Override
     public String toString() {
         return "id: " + id + ", youtubeChannel: " + youtubeChannel + ", hobby: " + hobby;
     }
+
+
 
     
     
